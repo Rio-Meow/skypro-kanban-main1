@@ -1,4 +1,17 @@
 import React, { useState } from 'react';
+import {
+  HeaderContainer,
+  HeaderBlock,
+  HeaderLogo,
+  HeaderNav,
+  HeaderButton,
+  HeaderUser,
+  PopUserSet,
+  PopUserName,
+  PopUserMail,
+  PopUserTheme,
+  ThemeButton
+} from './Header.styled';
 
 function Header() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -9,45 +22,48 @@ function Header() {
   };
 
   return (
-    <header className="header">
+    <HeaderContainer>
       <div className="container">
-        <div className="header__block">
-          <div className="header__logo _show _light">
-            <a href="" target="_self"><img src="images/logo.png" alt="logo" /></a>
-          </div>
-          <div className="header__logo _dark">
-            <a href="" target="_self"><img src="images/logo_dark.png" alt="logo" /></a>
-          </div>
-          <nav className="header__nav">
-            <button className="header__btn-main-new _hover01" id="btnMainNew">
+        <HeaderBlock>
+          <HeaderLogo className="_show _light">
+            <a href="" target="_self" rel="noreferrer">
+              <img src="images/logo.png" alt="logo" />
+            </a>
+          </HeaderLogo>
+          <HeaderLogo className="_dark">
+            <a href="" target="_self" rel="noreferrer">
+              <img src="images/logo_dark.png" alt="logo" />
+            </a>
+          </HeaderLogo>
+          <HeaderNav>
+            <HeaderButton className="_hover01" id="btnMainNew">
               <a href="#popNewCard">Создать новую задачу</a>
-            </button>
-            <a 
+            </HeaderButton>
+            <HeaderUser 
               href="#user-set-target" 
-              className="header__user _hover02"
+              className="_hover02"
               onClick={handleUserClick}
             >
               Ivan Ivanov
-            </a>
-            <div 
-              className={`header__pop-user-set pop-user-set ${isUserMenuOpen ? '_active' : ''}`} 
+            </HeaderUser>
+            <PopUserSet 
+              $isOpen={isUserMenuOpen}
               id="user-set-target"
-              style={{ display: isUserMenuOpen ? 'block' : 'none' }}
             >
-              <p className="pop-user-set__name">Ivan Ivanov</p>
-              <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-              <div className="pop-user-set__theme">
+              <PopUserName>Ivan Ivanov</PopUserName>
+              <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
+              <PopUserTheme>
                 <p>Темная тема</p>
                 <input type="checkbox" className="checkbox" name="checkbox" />
-              </div>
-              <button type="button" className="_hover03">
+              </PopUserTheme>
+              <ThemeButton type="button" className="_hover03">
                 <a href="#popExit">Выйти</a>
-              </button>
-            </div>
-          </nav>          
-        </div>
+              </ThemeButton>
+            </PopUserSet>
+          </HeaderNav>          
+        </HeaderBlock>
       </div>      
-    </header>
+    </HeaderContainer>
   );  
 }
 export default Header;
