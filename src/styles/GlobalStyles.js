@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { theme } from './theme';
 
 export const GlobalStyles = createGlobalStyle`
   * {
@@ -32,22 +33,31 @@ export const GlobalStyles = createGlobalStyle`
   body {
     width: 100%;
     height: 100%;
-    font-family: "Roboto", Arial, Helvetica, sans-serif;
-    color: #000000;
+    font-family: ${theme.fonts.primary};
+    color: ${theme.colors.textPrimary};
+    margin: 0;
+    padding: 0;
   }
 
   .wrapper {
     max-width: 100%;
     width: 100vw;
+    min-height: 100vh;
     overflow: hidden;
-    background-color: #F1F1F1;
+    background-color: ${theme.colors.bgMain};
+    padding: 0;
+    margin: 0;
   }
 
   .container {
     max-width: 1260px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 30px;
+    padding: ${theme.spacing.container};
+    
+    @media (max-width: ${theme.breakpoints.tablet}) {
+      padding: ${theme.spacing.containerMobile};
+    }
   }
 
   @keyframes card-animation {
@@ -73,23 +83,23 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   ._hover01:hover {
-    background-color: #33399b;
+    background-color: ${theme.colors.primaryHover};
   }
 
   ._hover02:hover, .header__user:hover {
-    color: #33399b;
+    color: ${theme.colors.primaryHover};
   }
   ._hover02:hover::after, .header__user:hover::after {
-    border-left-color: #33399b;
-    border-bottom-color: #33399b;
+    border-left-color: ${theme.colors.primaryHover};
+    border-bottom-color: ${theme.colors.primaryHover};
   }
 
   ._hover03:hover {
-    background-color: #33399b;
-    color: #FFFFFF;
+    background-color: ${theme.colors.primaryHover};
+    color: ${theme.colors.white};
   }
   ._hover03:hover a {
-    color: #FFFFFF;
+    color: ${theme.colors.white};
   }
 
   .pop-user-set:target,
@@ -100,23 +110,23 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   ._orange {
-    background-color: #FFE4C2;
-    color: #FF6D00;
+    background-color: ${theme.colors.orangeBg};
+    color: ${theme.colors.orangeText};
   }
 
   ._green {
-    background-color: #B4FDD1;
-    color: #06B16E;
+    background-color: ${theme.colors.greenBg};
+    color: ${theme.colors.greenText};
   }
 
   ._purple {
-    background-color: #E9D4FF;
-    color: #9A48F1;
+    background-color: ${theme.colors.purpleBg};
+    color: ${theme.colors.purpleText};
   }
 
   ._gray {
-    background: #94A6BE;
-    color: #FFFFFF;
+    background: ${theme.colors.grayBg};
+    color: ${theme.colors.grayText};
   }
 
   ._active-category {

@@ -1,0 +1,72 @@
+export const theme = {
+  colors: {
+    primary: '#565EEF',
+    primaryHover: '#33399b',
+    white: '#FFFFFF',
+    black: '#000000',
+    bgMain: '#F1F1F1',
+    bgSecondary: '#EAEEF6',
+    bgCard: '#FFFFFF',
+    bgDark: '#000000',
+    textPrimary: '#000000',
+    textSecondary: '#94A6BE',
+    textLight: '#FFFFFF',
+    textInactive: 'rgba(148, 166, 190, 0.4)',
+    border: '#D4DBE5',
+    borderLight: 'rgba(148, 166, 190, 0.4)',
+    shadow: 'rgba(0, 0, 0, 0.13)',
+    orangeBg: '#FFE4C2',
+    orangeText: '#FF6D00',
+    greenBg: '#B4FDD1',
+    greenText: '#06B16E',
+    purpleBg: '#E9D4FF',
+    purpleText: '#9A48F1',
+    grayBg: '#94A6BE',
+    grayText: '#FFFFFF'
+  },
+  spacing: {
+    container: '0 30px',
+    containerMobile: '0 16px',
+    card: '15px 13px 19px',
+    popup: '40px 30px 48px',
+    section: '25px 0 49px',
+    headerHeight: '70px',
+    button: '30px',
+    buttonMobile: '40px',
+    cardWidth: '220px',
+    cardHeight: '130px',
+    borderRadius: {
+      small: '4px',
+      medium: '8px',
+      large: '10px',
+      pill: '24px',
+      circle: '18px'
+    }
+  },
+  fonts: {
+    primary: '"Roboto", Arial, Helvetica, sans-serif',
+    sizes: {
+      xs: '10px',
+      sm: '14px',
+      md: '16px',
+      lg: '20px',
+      xl: '24px'
+    },
+    weights: {
+      regular: 400,
+      medium: 500,
+      semibold: 600,
+      bold: 700
+    }
+  },
+  shadows: {
+    small: '0px 4px 67px -12px rgba(0, 0, 0, 0.13)',
+    medium: '0px 10px 39px 0px rgba(26, 56, 101, 0.21)'
+  },
+  breakpoints: {
+    mobile: '375px',
+    tablet: '495px',
+    laptop: '660px',
+    desktop: '1200px'
+  }
+};

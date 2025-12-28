@@ -1,13 +1,15 @@
 import styled from 'styled-components';
+import { theme } from '../../styles/theme';
 
 export const HeaderContainer = styled.header`
   width: 100%;
   margin: 0 auto;
-  background-color: #FFFFFF;
+  background-color: ${theme.colors.white};
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 export const HeaderBlock = styled.div`
-  height: 70px;
+  height: ${theme.spacing.headerHeight};
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
@@ -34,18 +36,24 @@ export const HeaderNav = styled.nav`
 
 export const HeaderButton = styled.button`
   width: 178px;
-  height: 30px;
-  border-radius: 4px;
-  background-color: #565EEF;
-  color: #FFFFFF;
+  height: ${theme.spacing.button};
+  border-radius: ${theme.spacing.borderRadius.small};
+  background-color: ${theme.colors.primary};
+  color: ${theme.colors.white};
   border: none;
-  font-size: 14px;
+  font-size: ${theme.fonts.sizes.sm};
+  font-weight: ${theme.fonts.weights.medium};
   line-height: 1;
-  font-weight: 500;
   margin-right: 20px;
+  transition: background-color 0.3s ease;
 
   a {
-    color: #FFFFFF;
+    color: ${theme.colors.white};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -55,10 +63,11 @@ export const HeaderUser = styled.a`
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: ${theme.fonts.sizes.sm};
   line-height: 20px;
-  color: #565EEF;
+  color: ${theme.colors.primary};
   position: relative;
+  transition: color 0.3s ease;
   
   &::after {
     content: "";
@@ -66,11 +75,12 @@ export const HeaderUser = styled.a`
     width: 6px;
     height: 6px;
     border-radius: 1px;
-    border-left: 1.9px solid #565EEF;
-    border-bottom: 1.9px solid #565EEF;
+    border-left: 1.9px solid ${theme.colors.primary};
+    border-bottom: 1.9px solid ${theme.colors.primary};
     transform: rotate(-45deg);
     margin: -6px 0 0 5px;
     padding: 0;
+    transition: border-color 0.3s ease;
   }
 `;
 
@@ -81,10 +91,10 @@ export const PopUserSet = styled.div`
   right: 0;
   width: 213px;
   height: 205px;
-  border-radius: 10px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
-  background: #FFF;
-  box-shadow: 0px 10px 39px 0px rgba(26, 56, 101, 0.21);
+  border-radius: ${theme.spacing.borderRadius.large};
+  border: 0.7px solid ${theme.colors.borderLight};
+  background: ${theme.colors.white};
+  box-shadow: ${theme.shadows.medium};
   padding: 34px;
   text-align: center;
   z-index: 2;
@@ -92,17 +102,17 @@ export const PopUserSet = styled.div`
 `;
 
 export const PopUserName = styled.p`
-  color: #000;
-  font-size: 14px;
-  font-weight: 500;
+  color: ${theme.colors.textPrimary};
+  font-size: ${theme.fonts.sizes.sm};
+  font-weight: ${theme.fonts.weights.medium};
   line-height: 21px;
   letter-spacing: -0.14px;
   margin-bottom: 4px;
 `;
 
 export const PopUserMail = styled.p`
-  color: #94A6BE;
-  font-size: 14px;
+  color: ${theme.colors.textSecondary};
+  font-size: ${theme.fonts.sizes.sm};
   line-height: 21px;
   letter-spacing: -0.14px;
   margin-bottom: 10px;
@@ -115,8 +125,8 @@ export const PopUserTheme = styled.div`
   margin-bottom: 30px;
 
   p {
-    color: #000;
-    font-size: 14px;
+    color: ${theme.colors.textPrimary};
+    font-size: ${theme.fonts.sizes.sm};
     line-height: 21px;
     letter-spacing: -0.14px;
   }
@@ -126,7 +136,7 @@ export const PopUserTheme = styled.div`
     width: 24px;
     height: 13px;
     border-radius: 100px;
-    background: #EAEEF6;
+    background: ${theme.colors.bgSecondary};
     outline: none;
     appearance: none;
     
@@ -138,7 +148,7 @@ export const PopUserTheme = styled.div`
       width: 11px;
       height: 11px;
       border-radius: 50%;
-      background-color: #94A6BE;
+      background-color: ${theme.colors.textSecondary};
       transition: 0.5s;
     }
     
@@ -150,13 +160,22 @@ export const PopUserTheme = styled.div`
 
 export const ThemeButton = styled.button`
   width: 72px;
-  height: 30px;
+  height: ${theme.spacing.button};
   background: transparent;
-  color: #565EEF;
-  border-radius: 4px;
-  border: 1px solid #565EEF;
+  color: ${theme.colors.primary};
+  border-radius: ${theme.spacing.borderRadius.small};
+  border: 1px solid ${theme.colors.primary};
+  font-size: ${theme.fonts.sizes.sm};
+  font-weight: ${theme.fonts.weights.medium};
+  transition: all 0.3s ease;
   
   a {
-    color: #565EEF;
+    color: ${theme.colors.primary};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: color 0.3s ease;
   }
 `;
