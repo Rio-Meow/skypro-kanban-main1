@@ -27,7 +27,7 @@ export const MainBlock = styled.div`
 export const MainContent = styled.div`
   width: 100%;
   display: flex;
-  gap: 20px;
+  gap: 19px;
   padding: 0;
   margin: 0;
   
