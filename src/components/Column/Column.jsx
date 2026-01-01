@@ -1,19 +1,30 @@
 import React from 'react';
-import Card from '../Card/Card'; 
+import Card from '../Card/Card';
+import {
+  MainColumn,
+  ColumnTitle,
+  CardsContainer
+} from '../Main/Main.styled';
 
-function Column({ title, cards, getThemeClass }) {
+function Column({ title = '', cards = [] }) {
   return (
-    <div className="main__column">
-      <div className="column__title">
+    <MainColumn>
+      <ColumnTitle>
         <p>{title}</p>
-      </div>
-      <div className="cards">
-        {cards.map(card => (
-          <Card key={card.id} card={card} getThemeClass={getThemeClass} />
-        ))}
-      </div>
-    </div>
+      </ColumnTitle>
+      <CardsContainer>
+        {cards && cards.length > 0 ? (
+          cards.map(card => (
+            <Card key={card.id} card={card} />
+          ))
+        ) : (
+          <div style={{ padding: '20px', color: '#94A6BE', textAlign: 'center' }}>
+            Нет задач
+          </div>
+        )}
+      </CardsContainer>
+    </MainColumn>
   );
 }
-
+						
 export default Column;
