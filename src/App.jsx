@@ -1,24 +1,18 @@
-import { useState } from 'react'
-import './App.css'
-import Header from './components/Header/Header'
-import Main from './components/Main/Main'
-import PopBrowse from './components/PopBrowse/PopBrowse'
-import PopNewCard from './components/PopNewCard/PopNewCard'
-import PopUser from './components/PopUser/PopUser'
+import { BrowserRouter as Router } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import AppRoutes from './components/AppRoutes/AppRoutes';
+import './App.css';
 
 function App() {
-  
   return (
-    <>
-    <div className="App">
-      <Header />
-      <Main />
-      <PopBrowse />
-      <PopUser />
-      <PopNewCard />
-    </div>
-    </>
-  )
+    <Router>
+      <AuthProvider>
+        <div className="App">
+          <AppRoutes />
+        </div>
+      </AuthProvider>
+    </Router>
+  );
 }
 
-export default App
+export default App;
