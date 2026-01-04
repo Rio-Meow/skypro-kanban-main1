@@ -82,7 +82,7 @@ function Main() {
                           <CardTheme $theme={card.theme}>
                             <ThemeText>{card.theme}</ThemeText>
                           </CardTheme>
-                          <a href="#popBrowse" target="_self" rel="noreferrer">
+                          <a href="#popBrowse">
                             <CardButton>
                               <div></div>
                               <div></div>
@@ -91,7 +91,7 @@ function Main() {
                           </a>
                         </CardGroup>
                         <CardContent>
-                          <a href="" target="_blank" rel="noreferrer">
+                          <a href="#">
                             <CardTitle>{card.title}</CardTitle>
                           </a>
                           <CardDate>
