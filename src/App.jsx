@@ -1,24 +1,6 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import AppRoutes from './components/AppRoutes/AppRoutes';
-import PopBrowse from './components/PopBrowse/PopBrowse';
-import PopUser from './components/PopUser/PopUser';
-import PopNewCard from './components/PopNewCard/PopNewCard';
-import './App.css';
+import "./App.css";
+import AppRoutes from "./components/AppRoutes";
 
-function App() {
-  return (
-    <Router>
-      <AuthProvider>
-        <div className="App">
-          <AppRoutes />
-          <PopBrowse />
-          <PopUser />
-          <PopNewCard />
-        </div>
-      </AuthProvider>
-    </Router>
-  );
-}
-
-export default App;
+export const App = () => {
+  return <AppRoutes />;
+};

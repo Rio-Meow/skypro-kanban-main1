@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme } from '../styles/theme';
 import { cardList } from '../data.js';
+import { tasksAPI } from '../services';
 
 const PageContainer = styled.div`
   max-width: 800px;
@@ -160,11 +161,32 @@ function CardDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [card, setCard] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const foundCard = cardList.find(card => card.id === parseInt(id));
-    setCard(foundCard);
+    const fetchCard = async () => {
+      setIsLoading(true);
+      try {
+        const task = await tasksAPI.getTaskById(id);
+        if (task) {
+          setCard(task);
+        } else {
+          setError('Карточка не найдена');
+        }
+      } catch (err) {
+        console.error('Ошибка загрузки карточки:', err);
+        setError(err.message || 'Ошибка загрузки данных');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchCard();
+    }
   }, [id]);
+
 
   const handleBack = () => {
     navigate(-1);
