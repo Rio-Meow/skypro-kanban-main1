@@ -25,8 +25,8 @@ export const theme = {
     grayText: '#FFFFFF'
   },
   spacing: {
-    container: '0 30px',
-    containerMobile: '0 16px',
+    container: '0',
+    containerMobile: '0',
     card: '15px 13px 19px',
     popup: '40px 30px 48px',
     section: '25px 0 49px',
