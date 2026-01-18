@@ -1,42 +1,77 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
+import { signIn as apiSignIn, signUp as apiSignUp } from "../services/auth";
 
-const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+export const AuthProvider = ({ children }) => {
 
-  useEffect(() => {
+  const [user, setUser] = useState(() => {
     try {
-      const storedUser = localStorage.getItem("userInfo");
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
+      const storedUserInfo = localStorage.getItem("userInfo");
+      const storedToken = localStorage.getItem("token"); 
+      if (storedUserInfo && storedToken) {
+        const parsedUserInfo = JSON.parse(storedUserInfo);
+        return { ...parsedUserInfo, token: storedToken };
       }
     } catch (error) {
-      console.error("Ошибка при загрузке userInfo из localStorage:", error);
+      console.error(
+        "Ошибка при загрузке данных пользователя из localStorage:",
+        error
+      );
     }
-  }, []);
+    return null; 
+  });
 
-  const updateUserInfo = (userData) => {
-    setUser(userData);
-    if (userData) {
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
+
+  useEffect(() => {
+    setIsAuthChecked(true);
+  }, [user]); 
+
+  const updateUserInfo = useCallback((userData) => {
+    setUser(userData); 
+    if (userData && userData.token) {
       localStorage.setItem("userInfo", JSON.stringify(userData));
+      localStorage.setItem("token", userData.token);
     } else {
       localStorage.removeItem("userInfo");
+      localStorage.removeItem("token");
+    }
+  }, []); 
+
+  const login = async ({ login: userLogin, password }) => {
+    try {
+      const data = await apiSignIn({ login: userLogin, password });
+      updateUserInfo(data.user); 
+      return true; 
+    } catch (error) {
+      console.error("Ошибка входа:", error);
+      updateUserInfo(null); 
+      throw error;
     }
   };
 
-  const login = (userData) => {
-    updateUserInfo(userData);
-    return true;
+  const register = async ({ name, login: userLogin, password }) => {
+    try {
+      const data = await apiSignUp({ name, login: userLogin, password });
+      updateUserInfo(data.user);
+      return true; 
+    } catch (error) {
+      console.error("Ошибка регистрации:", error);
+      updateUserInfo(null); 
+      throw error; 
+    }
   };
 
   const logout = () => {
-    updateUserInfo(null);
-    return true;
+    updateUserInfo(null); 
+    return true; 
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, updateUserInfo }}>
-      {children}
+    <AuthContext.Provider
+      value={{ user, login, register, logout, updateUserInfo, isAuthChecked }}
+    >
+      {children}{" "}
     </AuthContext.Provider>
   );
 };

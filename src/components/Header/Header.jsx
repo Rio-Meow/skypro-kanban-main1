@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { PopUser } from "../PopUser/PopUser";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   HeaderStyle,
   HeaderBlock,
@@ -11,8 +11,14 @@ import {
   PopUserOverlay,
 } from "../Header/Header.styled";
 
-export const Header = ({ setIsAuth }) => {
+import { AuthContext } from "../../context/AuthContext";
+
+export const Header = () => {
+  const location = useLocation();
+
   const [isPopUserVisible, setIsPopUserVisible] = useState(false);
+
+  const { user, logout } = useContext(AuthContext);
 
   const togglePopUserVisibility = () => {
     setIsPopUserVisible(!isPopUserVisible);
@@ -28,8 +34,7 @@ export const Header = ({ setIsAuth }) => {
     navigate("/new-card");
   };
 
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  const userName = userInfo?.name || "Пользователь";
+  const userName = user?.name || "Пользователь";
 
   return (
     <HeaderStyle>
@@ -59,7 +64,7 @@ export const Header = ({ setIsAuth }) => {
                   <div onClick={(e) => e.stopPropagation()}>
                     <PopUser
                       $isVisible={isPopUserVisible}
-                      setIsAuth={setIsAuth}
+                      onLogout={logout}
                       onClose={closePopUser}
                     />
                   </div>

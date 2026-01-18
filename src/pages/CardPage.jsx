@@ -1,8 +1,10 @@
 import { PopBrowse } from "../components/PopBrowse/PopBrowse";
-import { useParams, useOutletContext } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useContext } from "react"; 
+import { TaskContext } from "../context/TaskContext";
 
 export const CardPage = () => {
-  const { tasks, fetchTasks } = useOutletContext(); 
+const { tasks, fetchTasks } = useContext(TaskContext);
   const { id } = useParams(); 
 
   const task = tasks.find((t) => t._id === id); 
