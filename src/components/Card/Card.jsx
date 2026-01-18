@@ -1,41 +1,89 @@
-import React from 'react';
+import { useNavigate } from "react-router-dom";
 import {
-  CardItem,
-  CardWrapper,
+  CardsItem,
+  CardsCard,
   CardGroup,
   CardTheme,
-  ThemeText,
-  CardButton,
+  CardBtn,
   CardContent,
   CardTitle,
-  CardDate
-} from '../Main/Main.styled';
+  CardDate,
+} from "../Card/Card.styled";
 
-function Card({ card }) {
+export const Card = ({ _id, topic, title, date }) => {
+  let themeClass = "";
+  switch (
+    topic 
+  ) {
+    case "Web Design":
+      themeClass = "orange";
+      break;
+    case "Research":
+      themeClass = "green";
+      break;
+    case "Copywriting":
+      themeClass = "purple";
+      break;
+  }
+
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/card/${_id}`);
+  };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = String(date.getFullYear()).slice(-2);
+
+    return `${day}.${month}.${year}`;
+  };
+
   return (
-    <CardItem>
-      <CardWrapper>
+    <CardsItem>
+      <CardsCard id={`card-${_id}`}>
         <CardGroup>
-          <CardTheme $theme={card.theme}>
-            <ThemeText>{card.theme}</ThemeText>
+          <CardTheme className={`_${themeClass}`}>
+            <p className={`_${themeClass}`}>{topic}</p>
           </CardTheme>
-          <a href="#popBrowse" target="_self" rel="noreferrer">
-            <CardButton>
+          <>
+            <CardBtn onClick={handleCardClick}>
               <div></div>
               <div></div>
               <div></div>
-            </CardButton>
-          </a>
+            </CardBtn>
+          </>
         </CardGroup>
         <CardContent>
-          <a href="" target="_blank" rel="noreferrer">
-            <CardTitle>{card.title}</CardTitle>
-          </a>
+          <div>
+            <CardTitle>{title}</CardTitle>
+          </div>
           <CardDate>
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13"
+              height="13"
+              viewBox="0 0 13 13"
+              fill="none"
+            >
               <g clipPath="url(#clip0_1_415)">
-                <path d="M10.5625 2.03125H2.4375C1.7644 2.03125 1.21875 2.5769 1.21875 3.25V10.5625C1.21875 11.2356 1.7644 11.7812 2.4375 11.7812H10.5625C11.2356 11.7812 11.7812 11.2356 11.7812 10.5625V3.25C11.7812 2.5769 11.2356 2.03125 10.5625 2.03125Z" stroke="#94A6BE" strokeWidth="0.8" strokeLinejoin="round" />
-                <path d="M11.7812 4.0625H1.21875M3.25 1.21875V2.03125V1.21875ZM9.75 1.21875V2.03125V1.21875Z" stroke="#94A6BE" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M10.5625 2.03125H2.4375C1.7644 2.03125 1.21875 2.5769 1.21875 3.25V10.5625C1.21875 11.2356 1.7644 11.7812 2.4375 11.7812H10.5625C11.2356 11.7812 11.7812 11.2356 11.7812 10.5625V3.25C11.7812 2.5769 11.2356 2.03125 10.5625 2.03125Z"
+                  stroke="#94A6BE"
+                  strokeWidth="0.8"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M11.7812 4.0625H1.21875M3.25 1.21875V2.03125V1.21875ZM9.75 1.21875V2.03125V1.21875Z"
+                  stroke="#94A6BE"
+                  strokeWidth="0.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </g>
               <defs>
                 <clipPath id="clip0_1_415">
@@ -43,12 +91,10 @@ function Card({ card }) {
                 </clipPath>
               </defs>
             </svg>
-            <p>{card.date}</p>
+            <p>{formatDate(date)}</p>
           </CardDate>
         </CardContent>
-      </CardWrapper>
-    </CardItem>
+      </CardsCard>
+    </CardsItem>
   );
-}
-
-export default Card;
+};

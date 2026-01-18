@@ -1,48 +1,128 @@
-import React from 'react';
+import { Calendar } from "../Calendar/Calendar";
+import {
+  PopNewCardStyled,
+  PopNewCardContainer,
+  PopNewCardBlock,
+  PopNewCardContent,
+  PopNewCardTitle,
+  PopNewCardClose,
+  PopNewCardWrap,
+  PopNewCardForm,
+  FormNewBlock,
+  FormNewInput,
+  FormNewArea,
+  FormNewCreate,
+  Categories,
+  CategoriesP,
+  CategoriesThemes,
+  CategoriesTheme,
+  Subtitle,
+} from "./PopNewCard.styled";
+import { useState } from "react";
+import { postTask } from "../../services/api";
 
-function PopNewCard() {
-	return (
-<div className="pop-new-card" id="popNewCard">
-				<div className="pop-new-card__container">
-					<div className="pop-new-card__block">
-						<div className="pop-new-card__content">
-							<h3 className="pop-new-card__ttl">Создание задачи</h3>
-							<a href="#" className="pop-new-card__close">&#10006;</a>
-							<div className="pop-new-card__wrap">
-								<form className="pop-new-card__form form-new" id="formNewCard" action="#">
-									<div className="form-new__block">
-										<label htmlFor="formTitle" className="subttl">Название задачи</label>
-										<input className="form-new__input" type="text" name="name" id="formTitle" placeholder="Введите название задачи..." autoFocus></input>
-									</div>
-									<div className="form-new__block">
-										<label htmlFor="textArea" className="subttl">Описание задачи</label>
-										<textarea className="form-new__area" name="text" id="textArea"  placeholder="Введите описание задачи..."></textarea>
-									</div>
-								</form>
-							</div>
-							<div className="pop-new-card__categories categories">
-								<p className="categories__p subttl">Категория</p>
-								<div className="categories__themes">
-									<div className="categories__theme _orange _active-category">
-										<p className="_orange">Web Design</p>
-									</div>
-									<div className="categories__theme _green">
-										<p className="_green">Research</p>
-									</div>
-									<div className="categories__theme _purple">
-										<p className="_purple">Copywriting</p>
-									</div>
-								</div>
-							</div>
-							<button className="form-new__create _hover01" id="btnCreate">Создать задачу</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-	
-	);
+export const PopNewCard = ({ onClose, token, onTaskCreated }) => {
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+  const [category, setCategory] = useState("Web Design"); 
 
-}
+  const handleCreate = async () => {
+    if (!title.trim()) {
+      alert("Введите название задачи");
+      return;
+    }
+    const newTask = {
+      title,
+      description: text,
+      topic: category,
+    };
 
-            export default PopNewCard;
+    console.log("Создаётся задача:", newTask);
+    console.log("Токен:", token);
+
+    try {
+      await postTask({ token, task: newTask });
+      onTaskCreated(); 
+      onClose(); 
+      setTitle("");
+      setText("");
+      setCategory("Web Design");
+    } catch (err) {
+      console.error("Ошибка при создании задачи:", err);
+    }
+  };
+
+  return (
+    <PopNewCardStyled id="popNewCard">
+      <PopNewCardContainer onClick={onClose}>
+        <PopNewCardBlock onClick={(e) => e.stopPropagation()}>
+          <PopNewCardContent>
+            <PopNewCardTitle>Создание задачи</PopNewCardTitle>
+            <PopNewCardClose onClick={onClose}>&#10006;</PopNewCardClose>
+            <PopNewCardWrap>
+              <PopNewCardForm id="formNewCard" action="#">
+                <FormNewBlock>
+                  <Subtitle htmlFor="formTitle">Название задачи</Subtitle>
+                  <FormNewInput
+                    type="text"
+                    name="name"
+                    id="formTitle"
+                    placeholder="Введите название задачи..."
+                    autoFocus
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </FormNewBlock>
+                <FormNewBlock>
+                  <Subtitle htmlFor="textArea">Описание задачи</Subtitle>
+                  <FormNewArea
+                    name="text"
+                    id="textArea"
+                    placeholder="Введите описание задачи..."
+                    onChange={(e) => setText(e.target.value)}
+                  />
+                </FormNewBlock>
+              </PopNewCardForm>
+              <Calendar />
+            </PopNewCardWrap>
+            <Categories>
+              <CategoriesP>Категория</CategoriesP>
+              <CategoriesThemes>
+                <CategoriesTheme
+                  className={`_orange ${
+                    category === "Web Design" ? "_active-category" : ""
+                  }`}
+                  onClick={() => setCategory("Web Design")}
+                >
+                  <p className="_orange">Web Design</p>
+                </CategoriesTheme>
+                <CategoriesTheme
+                  className={`_green ${
+                    category === "Research" ? "_active-category" : ""
+                  }`}
+                  onClick={() => setCategory("Research")}
+                >
+                  <p className="_green">Research</p>
+                </CategoriesTheme>
+                <CategoriesTheme
+                  className={`_purple ${
+                    category === "Copywriting" ? "_active-category" : ""
+                  }`}
+                  onClick={() => setCategory("Copywriting")}
+                >
+                  <p className="_purple">Copywriting</p>
+                </CategoriesTheme>
+              </CategoriesThemes>
+            </Categories>
+            <FormNewCreate
+              className="_hover01"
+              id="btnCreate"
+              onClick={handleCreate}
+            >
+              Создать задачу
+            </FormNewCreate>
+          </PopNewCardContent>
+        </PopNewCardBlock>
+      </PopNewCardContainer>
+    </PopNewCardStyled>
+  );
+};

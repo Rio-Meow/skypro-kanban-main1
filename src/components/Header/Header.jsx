@@ -1,69 +1,73 @@
-import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { PopUser } from "../PopUser/PopUser";
+import { useState } from "react";
 import {
-  HeaderContainer,
+  HeaderStyle,
   HeaderBlock,
   HeaderLogo,
   HeaderNav,
-  HeaderButton,
+  HeaderBtnMainNew,
   HeaderUser,
-  PopUserSet,
-  PopUserName,
-  PopUserMail,
-  PopUserTheme,
-  ThemeButton
-} from './Header.styled';
+  PopUserOverlay,
+} from "../Header/Header.styled";
 
-function Header() {
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+export const Header = ({ setIsAuth }) => {
+  const [isPopUserVisible, setIsPopUserVisible] = useState(false);
 
-  const handleUserClick = (e) => {
-    e.preventDefault();
-    setIsUserMenuOpen(!isUserMenuOpen);
+  const togglePopUserVisibility = () => {
+    setIsPopUserVisible(!isPopUserVisible);
   };
 
+  const closePopUser = () => {
+    setIsPopUserVisible(false);
+  };
+
+  const navigate = useNavigate();
+
+  const openPopNewCardModal = () => {
+    navigate("/new-card");
+  };
+
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const userName = userInfo?.name || "Пользователь";
+
   return (
-    <HeaderContainer>
+    <HeaderStyle>
       <div className="container">
         <HeaderBlock>
           <HeaderLogo className="_show _light">
-            <a href="" target="_self" rel="noreferrer">
+            <a href="" target="_self">
               <img src="images/logo.png" alt="logo" />
             </a>
           </HeaderLogo>
           <HeaderLogo className="_dark">
-            <a href="" target="_self" rel="noreferrer">
+            <a href="" target="_self">
               <img src="images/logo_dark.png" alt="logo" />
             </a>
           </HeaderLogo>
           <HeaderNav>
-            <HeaderButton className="_hover01" id="btnMainNew">
-              <a href="#popNewCard">Создать новую задачу</a>
-            </HeaderButton>
-            <HeaderUser 
-              href="#user-set-target" 
-              className="_hover02"
-              onClick={handleUserClick}
-            >
-              Ivan Ivanov
+            <HeaderBtnMainNew id="btnMainNew" onClick={openPopNewCardModal}>
+              Создать новую задачу
+            </HeaderBtnMainNew>
+            <HeaderUser onClick={togglePopUserVisibility}>
+              {userName}
             </HeaderUser>
-            <PopUserSet 
-              $isOpen={isUserMenuOpen}
-              id="user-set-target"
-            >
-              <PopUserName>Ivan Ivanov</PopUserName>
-              <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
-              <PopUserTheme>
-                <p>Темная тема</p>
-                <input type="checkbox" className="checkbox" name="checkbox" />
-              </PopUserTheme>
-              <ThemeButton type="button" className="_hover03">
-                <a href="#popExit">Выйти</a>
-              </ThemeButton>
-            </PopUserSet>
-          </HeaderNav>          
+
+            {isPopUserVisible &&
+              location.pathname !== "/exit" && ( 
+                <PopUserOverlay onClick={closePopUser}>
+                  <div onClick={(e) => e.stopPropagation()}>
+                    <PopUser
+                      $isVisible={isPopUserVisible}
+                      setIsAuth={setIsAuth}
+                      onClose={closePopUser}
+                    />
+                  </div>
+                </PopUserOverlay>
+              )}
+          </HeaderNav>
         </HeaderBlock>
-      </div>      
-    </HeaderContainer>
-  );  
-}
-export default Header;
+      </div>
+    </HeaderStyle>
+  );
+};
