@@ -23,10 +23,6 @@ export const AuthProvider = ({ children }) => {
 
   const [isAuthChecked, setIsAuthChecked] = useState(false);
 
-  useEffect(() => {
-    setIsAuthChecked(true);
-  }, [user]); 
-
   const updateUserInfo = useCallback((userData) => {
     setUser(userData); 
     if (userData && userData.token) {
