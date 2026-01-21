@@ -26,9 +26,9 @@ import { AuthContext } from "../../context/AuthContext";
 export const PopBrowse = ({ task }) => {
   const navigate = useNavigate();
   const [isEditMode, setIsEditMode] = useState(false); 
-  const [editedStatus, setEditedStatus] = useState(task.status); 
-  const [editedText, setEditedText] = useState(task.text); 
-  const [editDate, setEditDate] = useState(task.date || "");
+  const [editedStatus, setEditedStatus] = useState(task?.status || ""); 
+  const [editedText, setEditedText] = useState(task?.description || task?.text || ""); 
+  const [editDate, setEditDate] = useState(task?.date || "");
 
   const {
     updateTask,
@@ -77,7 +77,8 @@ export const PopBrowse = ({ task }) => {
     try {
       const updatedTask = {
         title: task.title,
-        text: editedText,
+        description: editedText,  
+        text: editedText,         
         topic: task.topic,
         status: editedStatus,
       };
@@ -109,7 +110,7 @@ export const PopBrowse = ({ task }) => {
 
   const handleCancel = () => {
     setEditedStatus(task.status);
-    setEditedText(task.text);
+    setEditedText(task.description || task.text || "");
     setIsEditMode(false);
   };
 
@@ -181,7 +182,7 @@ export const PopBrowse = ({ task }) => {
             </PopBrowseWrap>
 
             {!isEditMode ? (
-              <PopBrowseButtons className="pop-browse__btn-browse">
+              <PopBrowseButtons>
                 <div className="btn-group">
                   <button
                     className="btn-browse__edit _btn-bor _hover03"
@@ -204,7 +205,7 @@ export const PopBrowse = ({ task }) => {
                 </button>
               </PopBrowseButtons>
             ) : (
-              <PopBrowseButtons className="pop-browse__btn-edit _hide">
+              <PopBrowseButtons>
                 <div className="btn-group">
                   <button
                     className="btn-edit__edit _btn-bg _hover01"
