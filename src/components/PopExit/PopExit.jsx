@@ -10,12 +10,12 @@ import {
   PopExitNoButton,
 } from "../PopExit/PopExit.styled";
 
-export const PopExit = ({ setIsAuth, $isVisible }) => {
+export const PopExit = ({ $isVisible, onLogout }) => {
   const navigate = useNavigate();
 
   const handleYesExit = (e) => {
     e.preventDefault();
-    setIsAuth(false);
+    onLogout();
     navigate("/sign-in");
   };
 
