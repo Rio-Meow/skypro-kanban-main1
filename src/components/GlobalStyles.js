@@ -113,6 +113,26 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   ._btn-bor {
     border-radius: 4px;
     border: 0.7px solid var(--palette-navy-60, #565eef);
@@ -143,15 +163,9 @@ export const GlobalStyle = createGlobalStyle`
     display: none;
   }
 
-  .loading-message {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    font-size: 24px;
-    color: #8B8B8B;
+  .content-enter {
+    animation: fadeIn 0.5s ease-out forwards;
   }
-
   @media (prefers-reduced-motion: no-preference) {
     a:nth-of-type(2) .logo { 
       animation: logo-spin infinite 20s linear;

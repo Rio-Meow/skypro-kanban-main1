@@ -23,7 +23,7 @@ function Register() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); 
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +40,7 @@ function Register() {
 
     try {
       const user = await signUp({ name, login: loginValue, password });
-      login(user); 
+      login(user);
       navigate("/");
     } catch (err) {
       setError(err.message);

@@ -58,18 +58,17 @@ export const Header = () => {
               {userName}
             </HeaderUser>
 
-            {isPopUserVisible &&
-              location.pathname !== "/exit" && ( 
-                <PopUserOverlay onClick={closePopUser}>
-                  <div onClick={(e) => e.stopPropagation()}>
-                    <PopUser
-                      $isVisible={isPopUserVisible}
-                      onLogout={logout}
-                      onClose={closePopUser}
-                    />
-                  </div>
-                </PopUserOverlay>
-              )}
+            {isPopUserVisible && location.pathname !== "/exit" && (
+              <PopUserOverlay onClick={closePopUser}>
+                <div onClick={(e) => e.stopPropagation()}>
+                  <PopUser
+                    $isVisible={isPopUserVisible}
+                    onLogout={logout}
+                    onClose={closePopUser}
+                  />
+                </div>
+              </PopUserOverlay>
+            )}
           </HeaderNav>
         </HeaderBlock>
       </div>

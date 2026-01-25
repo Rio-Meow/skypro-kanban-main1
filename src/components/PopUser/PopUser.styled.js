@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const PopUserContainer = styled.div`
-  display: ${({ $isVisible }) =>
-    $isVisible ? "block" : "none"}; 
+  display: ${({ $isVisible }) => ($isVisible ? "block" : "none")};
   position: absolute;
   top: 61px;
   right: 176px;

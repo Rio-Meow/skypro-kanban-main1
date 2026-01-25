@@ -1,8 +1,8 @@
-import React from 'react';
-import Main from '../components/Main/Main';
-import PopBrowse from '../components/PopBrowse/PopBrowse';
-import PopNewCard from '../components/PopNewCard/PopNewCard';
-import PopUser from '../components/PopUser/PopUser';
+import React from "react";
+import Main from "../components/Main/Main";
+import PopBrowse from "../components/PopBrowse/PopBrowse";
+import PopNewCard from "../components/PopNewCard/PopNewCard";
+import PopUser from "../components/PopUser/PopUser";
 
 function HomePage() {
   return (

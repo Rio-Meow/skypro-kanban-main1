@@ -54,7 +54,6 @@ export const AuthForm = ({ isSignUp }) => {
     }
 
     setErrors(newErrors);
-    console.log("Ошибки:", newErrors);
     return isValid;
   };
 
@@ -81,8 +80,8 @@ export const AuthForm = ({ isSignUp }) => {
         await login({ login: formData.login, password: formData.password });
       } else {
         await register(formData);
-      } 
-    navigate("/");
+      }
+      navigate("/");
     } catch {
       const serverError = isSignUp
         ? "Введенные вами данные не корректны. Чтобы завершить регистрацию, введите данные корректно и повторите попытку."

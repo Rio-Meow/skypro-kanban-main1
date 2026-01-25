@@ -1,29 +1,28 @@
-
-import { fetchWithAuth, KANBAN_API_BASE_URL } from './api';
+import { fetchWithAuth, KANBAN_API_BASE_URL } from "./api";
 
 export const tasksAPI = {
   async getAllTasks() {
     try {
-      console.log('Fetching tasks from real API:', KANBAN_API_BASE_URL);
+      console.log("Fetching tasks from real API:", KANBAN_API_BASE_URL);
       const data = await fetchWithAuth(KANBAN_API_BASE_URL);
-      
+
       if (data && data.tasks && Array.isArray(data.tasks)) {
         console.log(`Got ${data.tasks.length} tasks from API`);
-        
-        return data.tasks.map(task => ({
+
+        return data.tasks.map((task) => ({
           id: task._id,
           _id: task._id,
           theme: task.topic,
           title: task.title,
           date: formatDateForCard(task.date),
           status: task.status,
-          description: task.description
+          description: task.description,
         }));
       }
-      
+
       return [];
     } catch (error) {
-      console.error('Get all tasks error:', error);
+      console.error("Get all tasks error:", error);
       throw error;
     }
   },
@@ -31,7 +30,7 @@ export const tasksAPI = {
   async getTaskById(id) {
     try {
       const data = await fetchWithAuth(`${KANBAN_API_BASE_URL}/${id}`);
-      
+
       if (data && data.task) {
         return {
           id: data.task._id,
@@ -40,10 +39,10 @@ export const tasksAPI = {
           title: data.task.title,
           date: formatDateForCard(data.task.date),
           status: data.task.status,
-          description: data.task.description
+          description: data.task.description,
         };
       }
-      
+
       return null;
     } catch (error) {
       console.error(`Get task ${id} error:`, error);
@@ -54,35 +53,37 @@ export const tasksAPI = {
   async createTask(taskData) {
     try {
       const apiTaskData = {
-        title: taskData.title || 'Новая задача',
-        topic: taskData.theme || taskData.topic || 'Research',
-        status: taskData.status || 'Без статуса',
-        description: taskData.description || '',
-        date: taskData.date ? new Date(taskData.date).toISOString() : new Date().toISOString()
+        title: taskData.title || "Новая задача",
+        topic: taskData.theme || taskData.topic || "Research",
+        status: taskData.status || "Без статуса",
+        description: taskData.description || "",
+        date: taskData.date
+          ? new Date(taskData.date).toISOString()
+          : new Date().toISOString(),
       };
-      
-      console.log('Creating task:', apiTaskData);
-      
+
+      console.log("Creating task:", apiTaskData);
+
       const data = await fetchWithAuth(KANBAN_API_BASE_URL, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(apiTaskData),
       });
-      
+
       if (data && data.tasks && Array.isArray(data.tasks)) {
-        return data.tasks.map(task => ({
+        return data.tasks.map((task) => ({
           id: task._id,
           _id: task._id,
           theme: task.topic,
           title: task.title,
           date: formatDateForCard(task.date),
           status: task.status,
-          description: task.description
+          description: task.description,
         }));
       }
-      
+
       return [];
     } catch (error) {
-      console.error('Create task error:', error);
+      console.error("Create task error:", error);
       throw error;
     }
   },
@@ -93,27 +94,29 @@ export const tasksAPI = {
         title: taskData.title,
         topic: taskData.theme || taskData.topic,
         status: taskData.status,
-        description: taskData.description || '',
-        date: taskData.date ? new Date(taskData.date).toISOString() : new Date().toISOString()
+        description: taskData.description || "",
+        date: taskData.date
+          ? new Date(taskData.date).toISOString()
+          : new Date().toISOString(),
       };
-      
+
       const data = await fetchWithAuth(`${KANBAN_API_BASE_URL}/${id}`, {
-        method: 'PUT',
+        method: "PUT",
         body: JSON.stringify(apiTaskData),
       });
-      
+
       if (data && data.tasks && Array.isArray(data.tasks)) {
-        return data.tasks.map(task => ({
+        return data.tasks.map((task) => ({
           id: task._id,
           _id: task._id,
           theme: task.topic,
           title: task.title,
           date: formatDateForCard(task.date),
           status: task.status,
-          description: task.description
+          description: task.description,
         }));
       }
-      
+
       return [];
     } catch (error) {
       console.error(`Update task ${id} error:`, error);
@@ -124,21 +127,21 @@ export const tasksAPI = {
   async deleteTask(id) {
     try {
       const data = await fetchWithAuth(`${KANBAN_API_BASE_URL}/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
-      
+
       if (data && data.tasks && Array.isArray(data.tasks)) {
-        return data.tasks.map(task => ({
+        return data.tasks.map((task) => ({
           id: task._id,
           _id: task._id,
           theme: task.topic,
           title: task.title,
           date: formatDateForCard(task.date),
           status: task.status,
-          description: task.description
+          description: task.description,
         }));
       }
-      
+
       return [];
     } catch (error) {
       console.error(`Delete task ${id} error:`, error);
@@ -148,15 +151,17 @@ export const tasksAPI = {
 };
 
 function formatDateForCard(dateString) {
-  if (!dateString) return new Date().toLocaleDateString('ru-RU');
-  
+  if (!dateString) return new Date().toLocaleDateString("ru-RU");
+
   try {
     const date = new Date(dateString);
-    return date.toLocaleDateString('ru-RU', {
-      day: '2-digit',
-      month: '2-digit',
-      year: '2-digit'
-    }).replace(/\//g, '.');
+    return date
+      .toLocaleDateString("ru-RU", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "2-digit",
+      })
+      .replace(/\//g, ".");
   } catch (e) {
     return dateString;
   }

@@ -25,7 +25,7 @@ import { AuthContext } from "../../context/AuthContext";
 export const PopNewCard = ({ onClose }) => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-  const [category, setCategory] = useState("Web Design"); 
+  const [category, setCategory] = useState("Web Design");
 
   const { createTask, fetchTasks } = useContext(TaskContext);
   const { user } = useContext(AuthContext);
@@ -48,7 +48,7 @@ export const PopNewCard = ({ onClose }) => {
     try {
       await createTask(newTask);
       fetchTasks();
-      onClose(); 
+      onClose();
       setTitle("");
       setText("");
       setCategory("Web Design");

@@ -4,7 +4,7 @@ export const cardList = [
     topic: "Web Design",
     title: "Название задачи",
     date: "30.10.23",
-    status: "БЕЗ СТАТУСА", 
+    status: "БЕЗ СТАТУСА",
   },
   {
     id: 2,
@@ -18,14 +18,14 @@ export const cardList = [
     topic: "Copywriting",
     title: "Написать статью о React",
     date: "15.12.23",
-    status: "В РАБОТЕ", 
+    status: "В РАБОТЕ",
   },
   {
     id: 4,
     topic: "Web Design",
     title: "Адаптивная верстка",
     date: "01.01.24",
-    status: "ТЕСТИРОВАНИЕ", 
+    status: "ТЕСТИРОВАНИЕ",
   },
   {
     id: 5,
@@ -53,7 +53,7 @@ export const cardList = [
     topic: "Copywriting",
     title: "Написать статью о Vue",
     date: "04.12.23",
-    status: "ТЕСТИРОВАНИЕ", 
+    status: "ТЕСТИРОВАНИЕ",
   },
   {
     id: 9,

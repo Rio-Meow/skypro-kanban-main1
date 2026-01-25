@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { theme } from '../styles/theme';
-import { cardList } from '../data.js';
-import { tasksAPI } from '../services';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { theme } from "../styles/theme";
+import { cardList } from "../data.js";
+import { tasksAPI } from "../services";
 
 const PageContainer = styled.div`
   max-width: 800px;
@@ -89,20 +89,28 @@ const ThemeBadge = styled.span`
   border-radius: 18px;
   font-size: 12px;
   font-weight: 600;
-  background-color: ${props => {
-    switch(props.$theme) {
-      case 'Web Design': return theme.colors.orangeBg;
-      case 'Research': return theme.colors.greenBg;
-      case 'Copywriting': return theme.colors.purpleBg;
-      default: return theme.colors.grayBg;
+  background-color: ${(props) => {
+    switch (props.$theme) {
+      case "Web Design":
+        return theme.colors.orangeBg;
+      case "Research":
+        return theme.colors.greenBg;
+      case "Copywriting":
+        return theme.colors.purpleBg;
+      default:
+        return theme.colors.grayBg;
     }
   }};
-  color: ${props => {
-    switch(props.$theme) {
-      case 'Web Design': return theme.colors.orangeText;
-      case 'Research': return theme.colors.greenText;
-      case 'Copywriting': return theme.colors.purpleText;
-      default: return theme.colors.grayText;
+  color: ${(props) => {
+    switch (props.$theme) {
+      case "Web Design":
+        return theme.colors.orangeText;
+      case "Research":
+        return theme.colors.greenText;
+      case "Copywriting":
+        return theme.colors.purpleText;
+      default:
+        return theme.colors.grayText;
     }
   }};
 `;
@@ -172,11 +180,11 @@ function CardDetailPage() {
         if (task) {
           setCard(task);
         } else {
-          setError('Карточка не найдена');
+          setError("Карточка не найдена");
         }
       } catch (err) {
-        console.error('Ошибка загрузки карточки:', err);
-        setError(err.message || 'Ошибка загрузки данных');
+        console.error("Ошибка загрузки карточки:", err);
+        setError(err.message || "Ошибка загрузки данных");
       } finally {
         setIsLoading(false);
       }
@@ -187,7 +195,6 @@ function CardDetailPage() {
     }
   }, [id]);
 
-
   const handleBack = () => {
     navigate(-1);
   };
@@ -197,8 +204,8 @@ function CardDetailPage() {
   };
 
   const handleDelete = () => {
-    console.log('Delete card:', id);
-    navigate('/');
+    console.log("Delete card:", id);
+    navigate("/");
   };
 
   if (!card) {
@@ -219,7 +226,7 @@ function CardDetailPage() {
           <Title>Просмотр задачи</Title>
           <CardId>ID: {card.id}</CardId>
         </Header>
-        
+
         <CardContent>
           <CardField>
             <FieldLabel>Название</FieldLabel>
@@ -248,8 +255,9 @@ function CardDetailPage() {
           <CardField>
             <FieldLabel>Описание</FieldLabel>
             <FieldValue>
-              Здесь будет подробное описание задачи. В реальном приложении это поле 
-              будет содержать детальное описание задачи, созданное пользователем.
+              Здесь будет подробное описание задачи. В реальном приложении это
+              поле будет содержать детальное описание задачи, созданное
+              пользователем.
             </FieldValue>
           </CardField>
         </CardContent>

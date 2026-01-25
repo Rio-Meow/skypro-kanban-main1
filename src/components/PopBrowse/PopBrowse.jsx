@@ -25,9 +25,11 @@ import { AuthContext } from "../../context/AuthContext";
 
 export const PopBrowse = ({ task }) => {
   const navigate = useNavigate();
-  const [isEditMode, setIsEditMode] = useState(false); 
-  const [editedStatus, setEditedStatus] = useState(task?.status || ""); 
-  const [editedText, setEditedText] = useState(task?.description || task?.text || ""); 
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editedStatus, setEditedStatus] = useState(task?.status || "");
+  const [editedText, setEditedText] = useState(
+    task?.description || task?.text || "",
+  );
   const [editDate, setEditDate] = useState(task?.date || "");
 
   const {
@@ -53,7 +55,7 @@ export const PopBrowse = ({ task }) => {
       case "Copywriting":
         return "purple";
       default:
-        return "gray"; 
+        return "gray";
     }
   };
 
@@ -70,22 +72,22 @@ export const PopBrowse = ({ task }) => {
   const handleSave = async () => {
     if (!token) {
       console.error(
-        "Токен пользователя отсутствует. Невозможно сохранить задачу."
+        "Токен пользователя отсутствует. Невозможно сохранить задачу.",
       );
       return;
     }
     try {
       const updatedTask = {
         title: task.title,
-        description: editedText,  
-        text: editedText,         
+        description: editedText,
+        text: editedText,
         topic: task.topic,
         status: editedStatus,
       };
       console.log("Отправляем задачу на сервер:", updatedTask);
       await updateTask(task._id, updatedTask);
       setIsEditMode(false);
-      fetchTasks(); 
+      fetchTasks();
       handleClose();
     } catch (err) {
       console.error("Ошибка при сохранении:", err);
@@ -95,7 +97,7 @@ export const PopBrowse = ({ task }) => {
   const handleDelete = async () => {
     if (!token) {
       console.error(
-        "Токен пользователя отсутствует. Невозможно удалить задачу."
+        "Токен пользователя отсутствует. Невозможно удалить задачу.",
       );
       return;
     }
