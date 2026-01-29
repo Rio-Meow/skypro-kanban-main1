@@ -2,15 +2,12 @@ import apiClient from "./api.js";
 
 export const fetchTasks = async () => {
   try {
-    console.log("Fetching tasks...");
     const response = await apiClient.get("/");
 
     const tasks = response.data.задачи || response.data.tasks || [];
-    console.log(`Fetched ${tasks.length} tasks`);
 
     return { success: true, tasks };
   } catch (error) {
-    console.error("Error fetching tasks:", error);
 
     let errorMessage = "Не удалось загрузить задачи";
 
@@ -26,16 +23,13 @@ export const fetchTasks = async () => {
 
 export const createTask = async (taskData) => {
   try {
-    console.log("Creating task:", taskData);
 
     const response = await apiClient.post("/", taskData);
 
     const tasks = response.data.задачи || response.data.tasks || [];
-    console.log("Task created successfully");
 
     return { success: true, tasks };
   } catch (error) {
-    console.error("Error creating task:", error);
 
     let errorMessage = "Не удалось создать задачу";
 

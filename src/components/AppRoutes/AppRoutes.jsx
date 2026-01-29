@@ -13,9 +13,6 @@ import ExitPage from "../../pages/ExitPage";
 function AppRoutes() {
   const { isAuth } = useAuth();
 
-  console.log("=== APP ROUTES RENDER ===");
-  console.log("isAuth:", isAuth);
-
   return (
     <Routes>
       <Route

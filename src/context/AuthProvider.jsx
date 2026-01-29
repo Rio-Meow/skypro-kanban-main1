@@ -12,10 +12,6 @@ export const AuthProvider = ({ children }) => {
         return { ...parsedUserInfo, token: storedToken };
       }
     } catch (error) {
-      console.error(
-        "Ошибка при загрузке данных пользователя из localStorage:",
-        error,
-      );
     }
     return null;
   });
@@ -39,7 +35,6 @@ export const AuthProvider = ({ children }) => {
       updateUserInfo(data.user);
       return true;
     } catch (error) {
-      console.error("Ошибка входа:", error);
       updateUserInfo(null);
       throw error;
     }
@@ -51,7 +46,6 @@ export const AuthProvider = ({ children }) => {
       updateUserInfo(data.user);
       return true;
     } catch (error) {
-      console.error("Ошибка регистрации:", error);
       updateUserInfo(null);
       throw error;
     }

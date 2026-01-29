@@ -231,7 +231,6 @@ function EditCardPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Save card:", card);
     navigate(id ? `/card/${id}` : "/");
   };
 

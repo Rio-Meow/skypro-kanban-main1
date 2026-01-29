@@ -1,6 +1,5 @@
 export const mockAuthAPI = {
   async register({ login, password, name }) {
-    console.log("Mock register:", { login, name });
 
     await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -26,7 +25,6 @@ export const mockAuthAPI = {
   },
 
   async login({ login, password }) {
-    console.log("Mock login:", { login });
 
     await new Promise((resolve) => setTimeout(resolve, 500));
 

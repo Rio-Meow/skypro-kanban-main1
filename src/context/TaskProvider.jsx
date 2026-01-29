@@ -31,7 +31,6 @@ const TaskProvider = ({ children }) => {
         setTasks(data);
       }
     } catch (err) {
-      console.error("Ошибка загрузки задач:", err);
       setError(err.message || "Не удалось загрузить задачи.");
     } finally {
       setLoading(false);
@@ -55,7 +54,6 @@ const TaskProvider = ({ children }) => {
       await getTasks();
       return true;
     } catch (err) {
-      console.error("Ошибка создания задачи:", err);
       setError(err.message || "Не удалось создать задачу.");
       throw err;
     } finally {
@@ -75,7 +73,6 @@ const TaskProvider = ({ children }) => {
       await getTasks();
       return true;
     } catch (err) {
-      console.error("Ошибка редактирования задачи:", err);
       setError(err.message || "Не удалось обновить задачу.");
       throw err;
     } finally {
@@ -95,7 +92,6 @@ const TaskProvider = ({ children }) => {
       await getTasks();
       return true;
     } catch (err) {
-      console.error("Ошибка удаления задачи:", err);
       setError(err.message || "Не удалось удалить задачу.");
       throw err;
     } finally {

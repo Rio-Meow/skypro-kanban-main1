@@ -26,24 +26,43 @@ export const PopNewCard = ({ onClose }) => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [category, setCategory] = useState("Web Design");
+  const [error, setError] = useState(""); 
 
   const { createTask, fetchTasks } = useContext(TaskContext);
   const { user } = useContext(AuthContext);
   const token = user?.token;
 
   const handleCreate = async () => {
-    if (!title.trim()) {
-      alert("Введите название задачи");
+    setError("");
+    
+    const titleValue = title.trim();
+    const textValue = text.trim();
+    
+    if (!titleValue) {
+      setError("Введите название задачи");
       return;
     }
+    
+    if (!textValue) {
+      setError("Введите описание задачи");
+      return;
+    }
+    
+    if (titleValue.length < 3) {
+      setError("Название должно быть не менее 3 символов");
+      return;
+    }
+    
+    if (textValue.length < 5) {
+      setError("Описание должно быть не менее 5 символов");
+      return;
+    }
+    
     const newTask = {
-      title,
-      description: text,
+      title: titleValue,
+      description: textValue,
       topic: category,
     };
-
-    console.log("Создаётся задача:", newTask);
-    console.log("Токен:", token);
 
     try {
       await createTask(newTask);
@@ -53,7 +72,15 @@ export const PopNewCard = ({ onClose }) => {
       setText("");
       setCategory("Web Design");
     } catch (err) {
-      console.error("Ошибка при создании задачи:", err);
+      if (err.message.includes("400")) {
+        setError("Ошибка: Проверьте правильность заполнения полей");
+      } else if (err.message.includes("401") || err.message.includes("403")) {
+        setError("Ошибка авторизации");
+      } else if (err.message.includes("500")) {
+        setError("Ошибка сервера. Попробуйте позже");
+      } else {
+        setError(err.message || "Ошибка при создании задачи");
+      }
     }
   };
 
@@ -64,6 +91,21 @@ export const PopNewCard = ({ onClose }) => {
           <PopNewCardContent>
             <PopNewCardTitle>Создание задачи</PopNewCardTitle>
             <PopNewCardClose onClick={onClose}>&#10006;</PopNewCardClose>
+
+            {error && (
+              <div style={{
+                backgroundColor: "#ffe6e6",
+                border: "1px solid #ff9999",
+                borderRadius: "4px",
+                color: "#cc0000",
+                padding: "10px 15px",
+                margin: "0 0 15px 0",
+                fontSize: "14px"
+              }}>
+                {error}
+              </div>
+            )}
+            
             <PopNewCardWrap>
               <PopNewCardForm id="formNewCard" action="#">
                 <FormNewBlock>
@@ -74,8 +116,22 @@ export const PopNewCard = ({ onClose }) => {
                     id="formTitle"
                     placeholder="Введите название задачи..."
                     autoFocus
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={title}
+                    onChange={(e) => {
+                      setTitle(e.target.value);
+                      setError(""); 
+                    }}
                   />
+                  {title.trim().length > 0 && title.trim().length < 3 && (
+                    <small style={{ 
+                      color: "orange", 
+                      fontSize: "12px",
+                      display: "block",
+                      marginTop: "5px"
+                    }}>
+                      Минимум 3 символа (осталось: {3 - title.trim().length})
+                    </small>
+                  )}
                 </FormNewBlock>
                 <FormNewBlock>
                   <Subtitle htmlFor="textArea">Описание задачи</Subtitle>
@@ -83,8 +139,22 @@ export const PopNewCard = ({ onClose }) => {
                     name="text"
                     id="textArea"
                     placeholder="Введите описание задачи..."
-                    onChange={(e) => setText(e.target.value)}
+                    value={text}
+                    onChange={(e) => {
+                      setText(e.target.value);
+                      setError(""); 
+                    }}
                   />
+                  {text.trim().length > 0 && text.trim().length < 5 && (
+                    <small style={{ 
+                      color: "orange", 
+                      fontSize: "12px",
+                      display: "block",
+                      marginTop: "5px"
+                    }}>
+                      Минимум 5 символов (осталось: {5 - text.trim().length})
+                    </small>
+                  )}
                 </FormNewBlock>
               </PopNewCardForm>
               <Calendar />
@@ -122,6 +192,7 @@ export const PopNewCard = ({ onClose }) => {
               className="_hover01"
               id="btnCreate"
               onClick={handleCreate}
+              disabled={!title.trim() || !text.trim()}
             >
               Создать задачу
             </FormNewCreate>

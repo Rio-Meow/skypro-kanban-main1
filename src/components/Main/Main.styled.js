@@ -37,7 +37,7 @@ export const SkeletonColumn = styled.div`
   min-width: 220px;
   background: #fff;
   border-radius: 10px;
-  padding: 20px 15px;
+  padding: 15px 10px;
   border: 1px solid #E6E6E6;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.04);
   flex-shrink: 0;
@@ -48,7 +48,7 @@ export const SkeletonColumn = styled.div`
   @media (max-width: 768px) {
     width: 200px;
     min-width: 200px;
-    padding: 15px 12px;
+    padding: 12px 8px;
   }
 `;
 
@@ -56,64 +56,144 @@ export const SkeletonCard = styled.div`
   background: linear-gradient(90deg, #f5f5f5 25%, #ececec 50%, #f5f5f5 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite ease-in-out;
-  border-radius: 8px;
-  height: 110px;
-  width: 100%;
-  margin-bottom: 15px;
-  border: 1px solid #f0f0f0;
-  opacity: ${props => props.opacity || 1};
-  padding: 15px;
+  width: 220px;
+  height: 130px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 15px 13px 19px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: flex-start;
+  justify-content: stretch;
+
+  @media (max-width: 1200px) {
+    width: 220px;
+    height: 130px;
+  }
 
   @media (max-width: 768px) {
-    height: 100px;
-    padding: 12px;
-    margin-bottom: 12px;
+    width: 200px;
+    height: 120px;
+    padding: 12px 10px 16px;
   }
 `;
 
-export const SkeletonCardTitle = styled.div`
-  height: 18px;
-  width: ${props => props.width || "85%"};
-  border-radius: 4px;
+export const SkeletonCardGroup = styled.div`
+  width: 100%;
+  height: 20px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const SkeletonCardTheme = styled.div`
+  width: auto;
+  height: 20px;
+  padding: 5px 14px;
+  border-radius: 18px;
   background: linear-gradient(90deg, #e8e8e8 25%, #e0e0e0 50%, #e8e8e8 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite ease-in-out 0.3s;
-  margin-bottom: 10px;
 `;
 
-export const SkeletonCardDescription = styled.div`
-  height: 12px;
-  width: ${props => props.width || "70%"};
-  border-radius: 3px;
+export const SkeletonCardBtn = styled.div`
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2px;
+`;
+
+export const SkeletonCardBtnDot = styled.div`
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
   background: linear-gradient(90deg, #e8e8e8 25%, #e0e0e0 50%, #e8e8e8 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite ease-in-out 0.5s;
 `;
 
-export const SkeletonCardFooter = styled.div`
+export const SkeletonCardContent = styled.div`
+  height: 64px;
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 15px;
+  width: 100%;
 `;
 
-export const SkeletonTag = styled.div`
-  height: 20px;
-  width: ${props => props.width || "60px"};
-  border-radius: 10px;
+export const SkeletonCardTitle = styled.div`
   background: linear-gradient(90deg, #e8e8e8 25%, #e0e0e0 50%, #e8e8e8 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite ease-in-out 0.7s;
+  height: 18px;
+  width: ${props => props.width || "150px"};
+  border-radius: 4px;
+  margin-bottom: 10px;
 `;
 
-export const SkeletonDate = styled.div`
-  height: 16px;
-  width: 80px;
-  border-radius: 3px;
+export const SkeletonCardDate = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+`;
+
+export const SkeletonDateIcon = styled.div`
+  width: 13px;
+  height: 13px;
+  border-radius: 2px;
   background: linear-gradient(90deg, #e8e8e8 25%, #e0e0e0 50%, #e8e8e8 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite ease-in-out 0.9s;
+`;
+
+export const SkeletonDateText = styled.div`
+  margin-left: 6px;
+  height: 13px;
+  width: 60px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #e8e8e8 25%, #e0e0e0 50%, #e8e8e8 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite ease-in-out 1.1s;
+`;
+
+export const EmptyStateContainer = styled.div`
+  width: 100%;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  
+  @media screen and (max-width: 768px) {
+    padding: 40px 15px;
+  }
+`;
+
+export const EmptyStateTitle = styled.h3`
+  font-size: 24px;
+  font-weight: 600;
+  color: #000000; 
+  margin-bottom: 12px;
+  text-align: center;
+  
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+  }
+`;
+
+export const EmptyStateText = styled.p`
+  font-size: 16px;
+  color: #94a6be; 
+  line-height: 1.5;
+  max-width: 400px;
+  text-align: center;
+  
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 `;

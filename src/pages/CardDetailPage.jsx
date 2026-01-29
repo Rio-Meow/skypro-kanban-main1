@@ -183,7 +183,6 @@ function CardDetailPage() {
           setError("Карточка не найдена");
         }
       } catch (err) {
-        console.error("Ошибка загрузки карточки:", err);
         setError(err.message || "Ошибка загрузки данных");
       } finally {
         setIsLoading(false);
@@ -204,7 +203,6 @@ function CardDetailPage() {
   };
 
   const handleDelete = () => {
-    console.log("Delete card:", id);
     navigate("/");
   };
 

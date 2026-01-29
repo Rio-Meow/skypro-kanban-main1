@@ -3,11 +3,9 @@ import { fetchWithAuth, KANBAN_API_BASE_URL } from "./api";
 export const tasksAPI = {
   async getAllTasks() {
     try {
-      console.log("Fetching tasks from real API:", KANBAN_API_BASE_URL);
       const data = await fetchWithAuth(KANBAN_API_BASE_URL);
 
       if (data && data.tasks && Array.isArray(data.tasks)) {
-        console.log(`Got ${data.tasks.length} tasks from API`);
 
         return data.tasks.map((task) => ({
           id: task._id,
@@ -22,7 +20,6 @@ export const tasksAPI = {
 
       return [];
     } catch (error) {
-      console.error("Get all tasks error:", error);
       throw error;
     }
   },
@@ -45,7 +42,6 @@ export const tasksAPI = {
 
       return null;
     } catch (error) {
-      console.error(`Get task ${id} error:`, error);
       throw error;
     }
   },
@@ -61,8 +57,6 @@ export const tasksAPI = {
           ? new Date(taskData.date).toISOString()
           : new Date().toISOString(),
       };
-
-      console.log("Creating task:", apiTaskData);
 
       const data = await fetchWithAuth(KANBAN_API_BASE_URL, {
         method: "POST",
@@ -83,7 +77,6 @@ export const tasksAPI = {
 
       return [];
     } catch (error) {
-      console.error("Create task error:", error);
       throw error;
     }
   },
@@ -119,7 +112,6 @@ export const tasksAPI = {
 
       return [];
     } catch (error) {
-      console.error(`Update task ${id} error:`, error);
       throw error;
     }
   },
@@ -144,7 +136,6 @@ export const tasksAPI = {
 
       return [];
     } catch (error) {
-      console.error(`Delete task ${id} error:`, error);
       throw error;
     }
   },
