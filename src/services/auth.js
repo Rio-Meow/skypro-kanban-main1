@@ -26,13 +26,12 @@ export async function signUp({ name, login, password }) {
         headers: {
           "Content-Type": "",
         },
-      }
+      },
     );
     const token = data.data.user.token;
     localStorage.setItem("token", token);
     return data.data;
   } catch (error) {
-    console.log(error);
     throw new Error(error.response.data.error);
   }
 }

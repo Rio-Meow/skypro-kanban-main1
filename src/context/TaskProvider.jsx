@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useContext } from "react";
 import { TaskContext } from "./TaskContext";
 import {
-  fetchTasks as apiFetchTasks, 
+  fetchTasks as apiFetchTasks,
   postTask as apiPostTask,
   editTask as apiEditTask,
   deleteTask as apiDeleteTask,
@@ -10,39 +10,38 @@ import { AuthContext } from "./AuthContext";
 
 const TaskProvider = ({ children }) => {
   const { user } = useContext(AuthContext);
-  const token = user?.token; 
+  const token = user?.token;
 
-  const [tasks, setTasks] = useState([]); 
-  const [loading, setLoading] = useState(false); 
-  const [error, setError] = useState(null); 
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const getTasks = useCallback(async () => {
     if (!token) {
-      setTasks([]); 
-      setLoading(false); 
-      setError("Пользователь не авторизован или токен отсутствует."); 
-      return; 
+      setTasks([]);
+      setLoading(false);
+      setError("Пользователь не авторизован или токен отсутствует.");
+      return;
     }
     try {
-      setLoading(true); 
-      setError(null); 
-      const data = await apiFetchTasks({ token }); 
+      setLoading(true);
+      setError(null);
+      const data = await apiFetchTasks({ token });
       if (data) {
-        setTasks(data); 
+        setTasks(data);
       }
     } catch (err) {
-      console.error("Ошибка загрузки задач:", err); 
-      setError(err.message || "Не удалось загрузить задачи."); 
+      setError(err.message || "Не удалось загрузить задачи.");
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   }, [token]);
 
   useEffect(() => {
-    if (token) { 
+    if (token) {
       getTasks();
     }
-  }, [token, getTasks]); 
+  }, [token, getTasks]);
   const createTask = async (newTaskData) => {
     if (!token) {
       setError("Пользователь не авторизован.");
@@ -51,13 +50,12 @@ const TaskProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      await apiPostTask({ token, task: newTaskData }); 
-      await getTasks(); 
+      await apiPostTask({ token, task: newTaskData });
+      await getTasks();
       return true;
     } catch (err) {
-      console.error("Ошибка создания задачи:", err);
       setError(err.message || "Не удалось создать задачу.");
-      throw err; 
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -71,11 +69,10 @@ const TaskProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      await apiEditTask({ token, id, task: updatedTaskData }); 
-      await getTasks(); 
+      await apiEditTask({ token, id, task: updatedTaskData });
+      await getTasks();
       return true;
     } catch (err) {
-      console.error("Ошибка редактирования задачи:", err);
       setError(err.message || "Не удалось обновить задачу.");
       throw err;
     } finally {
@@ -91,11 +88,10 @@ const TaskProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      await apiDeleteTask({ token, id }); 
-      await getTasks(); 
+      await apiDeleteTask({ token, id });
+      await getTasks();
       return true;
     } catch (err) {
-      console.error("Ошибка удаления задачи:", err);
       setError(err.message || "Не удалось удалить задачу.");
       throw err;
     } finally {
@@ -108,15 +104,13 @@ const TaskProvider = ({ children }) => {
     loading,
     error,
     fetchTasks: getTasks,
-    createTask,          
-    updateTask,          
-    deleteTask: removeTask, 
+    createTask,
+    updateTask,
+    deleteTask: removeTask,
   };
 
   return (
-    <TaskContext.Provider value={contextValue}>
-      {children}
-    </TaskContext.Provider>
+    <TaskContext.Provider value={contextValue}>{children}</TaskContext.Provider>
   );
 };
 

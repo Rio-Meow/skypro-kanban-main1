@@ -206,18 +206,18 @@ export const ThemeItem = styled.div`
     variant === "orange"
       ? "#ffe4c2"
       : variant === "green"
-      ? "#b4fdd1"
-      : variant === "purple"
-      ? "#e9d4ff"
-      : "transparent"};
+        ? "#b4fdd1"
+        : variant === "purple"
+          ? "#e9d4ff"
+          : "transparent"};
   color: ${({ variant }) =>
     variant === "orange"
       ? "#ff6d00"
       : variant === "green"
-      ? "#06b16e"
-      : variant === "purple"
-      ? "#948ff1"
-      : "inherit"};
+        ? "#06b16e"
+        : variant === "purple"
+          ? "#948ff1"
+          : "inherit"};
 
   p {
     font-size: 14px;

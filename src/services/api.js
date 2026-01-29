@@ -24,7 +24,6 @@ export async function postTask({ token, task }) {
     });
     return data.data.tasks;
   } catch (error) {
-    console.error("Ошибка сервера:", error.response?.data || error.message);
     throw new Error(error.message);
   }
 }

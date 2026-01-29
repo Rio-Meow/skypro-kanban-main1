@@ -12,9 +12,7 @@ import {
 
 export const Card = ({ _id, topic, title, date }) => {
   let themeClass = "";
-  switch (
-    topic 
-  ) {
+  switch (topic) {
     case "Web Design":
       themeClass = "orange";
       break;

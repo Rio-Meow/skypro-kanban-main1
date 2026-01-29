@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { theme } from '../styles/theme';
-import { cardList } from '../data.js';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { theme } from "../styles/theme";
+import { cardList } from "../data.js";
 
 const PageContainer = styled.div`
   max-width: 800px;
@@ -116,23 +116,36 @@ const ThemeOption = styled.div`
   transition: all 0.3s ease;
   border: 2px solid transparent;
 
-  background-color: ${props => {
-    switch(props.$theme) {
-      case 'Web Design': return props.$selected ? theme.colors.orangeText : theme.colors.orangeBg;
-      case 'Research': return props.$selected ? theme.colors.greenText : theme.colors.greenBg;
-      case 'Copywriting': return props.$selected ? theme.colors.purpleText : theme.colors.purpleBg;
-      default: return props.$selected ? theme.colors.grayText : theme.colors.grayBg;
+  background-color: ${(props) => {
+    switch (props.$theme) {
+      case "Web Design":
+        return props.$selected
+          ? theme.colors.orangeText
+          : theme.colors.orangeBg;
+      case "Research":
+        return props.$selected ? theme.colors.greenText : theme.colors.greenBg;
+      case "Copywriting":
+        return props.$selected
+          ? theme.colors.purpleText
+          : theme.colors.purpleBg;
+      default:
+        return props.$selected ? theme.colors.grayText : theme.colors.grayBg;
     }
   }};
-  color: ${props => {
-    switch(props.$theme) {
-      case 'Web Design': return props.$selected ? theme.colors.white : theme.colors.orangeText;
-      case 'Research': return props.$selected ? theme.colors.white : theme.colors.greenText;
-      case 'Copywriting': return props.$selected ? theme.colors.white : theme.colors.purpleText;
-      default: return props.$selected ? theme.colors.white : theme.colors.grayText;
+  color: ${(props) => {
+    switch (props.$theme) {
+      case "Web Design":
+        return props.$selected ? theme.colors.white : theme.colors.orangeText;
+      case "Research":
+        return props.$selected ? theme.colors.white : theme.colors.greenText;
+      case "Copywriting":
+        return props.$selected ? theme.colors.white : theme.colors.purpleText;
+      default:
+        return props.$selected ? theme.colors.white : theme.colors.grayText;
     }
   }};
-  border-color: ${props => props.$selected ? theme.colors.textPrimary : 'transparent'};
+  border-color: ${(props) =>
+    props.$selected ? theme.colors.textPrimary : "transparent"};
 
   &:hover {
     transform: translateY(-2px);
@@ -182,38 +195,43 @@ function EditCardPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [card, setCard] = useState({
-    title: '',
-    theme: 'Web Design',
-    status: 'Без статуса',
-    date: '',
-    description: ''
+    title: "",
+    theme: "Web Design",
+    status: "Без статуса",
+    date: "",
+    description: "",
   });
 
-  const themes = ['Web Design', 'Research', 'Copywriting'];
-  const statuses = ['Без статуса', 'Нужно сделать', 'В работе', 'Тестирование', 'Готово'];
+  const themes = ["Web Design", "Research", "Copywriting"];
+  const statuses = [
+    "Без статуса",
+    "Нужно сделать",
+    "В работе",
+    "Тестирование",
+    "Готово",
+  ];
 
   useEffect(() => {
     if (id) {
-      const foundCard = cardList.find(card => card.id === parseInt(id));
+      const foundCard = cardList.find((card) => card.id === parseInt(id));
       if (foundCard) {
         setCard({
           ...foundCard,
-          description: 'Описание задачи будет здесь',
-          date: foundCard.date || new Date().toLocaleDateString('ru-RU')
+          description: "Описание задачи будет здесь",
+          date: foundCard.date || new Date().toLocaleDateString("ru-RU"),
         });
       }
     } else {
       setCard({
         ...card,
-        date: new Date().toLocaleDateString('ru-RU')
+        date: new Date().toLocaleDateString("ru-RU"),
       });
     }
   }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Save card:', card);
-    navigate(id ? `/card/${id}` : '/');
+    navigate(id ? `/card/${id}` : "/");
   };
 
   const handleCancel = () => {
@@ -228,10 +246,12 @@ function EditCardPage() {
     <PageContainer>
       <EditCardContainer>
         <Header>
-          <Title>{id ? 'Редактирование задачи' : 'Создание новой задачи'}</Title>
+          <Title>
+            {id ? "Редактирование задачи" : "Создание новой задачи"}
+          </Title>
           {id && <CardId>ID: {id}</CardId>}
         </Header>
-        
+
         <Form onSubmit={handleSubmit}>
           <FormGroup>
             <Label htmlFor="title">Название задачи *</Label>
@@ -248,7 +268,7 @@ function EditCardPage() {
           <FormGroup>
             <Label>Категория</Label>
             <ThemeOptions>
-              {themes.map(themeOption => (
+              {themes.map((themeOption) => (
                 <ThemeOption
                   key={themeOption}
                   $theme={themeOption}
@@ -268,7 +288,7 @@ function EditCardPage() {
               value={card.status}
               onChange={(e) => setCard({ ...card, status: e.target.value })}
             >
-              {statuses.map(status => (
+              {statuses.map((status) => (
                 <Option key={status} value={status}>
                   {status}
                 </Option>
@@ -292,14 +312,16 @@ function EditCardPage() {
             <TextArea
               id="description"
               value={card.description}
-              onChange={(e) => setCard({ ...card, description: e.target.value })}
+              onChange={(e) =>
+                setCard({ ...card, description: e.target.value })
+              }
               placeholder="Введите подробное описание задачи..."
             />
           </FormGroup>
 
           <ActionButtons>
             <SaveButton type="submit">
-              {id ? 'Сохранить изменения' : 'Создать задачу'}
+              {id ? "Сохранить изменения" : "Создать задачу"}
             </SaveButton>
             <CancelButton type="button" onClick={handleCancel}>
               Отмена

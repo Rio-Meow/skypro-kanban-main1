@@ -5,7 +5,6 @@ import PopUser from "../PopUser/PopUser";
 function Popups() {
   return (
     <>
-
       <PopNewCard />
     </>
   );
